@@ -28,16 +28,17 @@ st.dataframe(df)
 # Train Model
 # -----------------------------------
 
-X_train, X_test, y_train, y_test = train_test_split(df[['age']],df.bought_insurance,train_size=0.8)
+X = df[["age"]]
+y = [premium]
 
 model = LogisticRegression()
 
-model.fit(X_train, y_train)
+model.fit(X, y)
 
 # -----------------------------------
 # User Input
 # -----------------------------------
-st.subheader("Enter Age of person:")
+st.subheader("Enter Age")
 
 age = st.number_input(
     "Age (in Years)",
@@ -50,7 +51,7 @@ age = st.number_input(
 # -----------------------------------
 # Prediction
 # -----------------------------------
-if st.button("Predict Insurance in Yes/No:"):
+if st.button("Predict Insurance"):
 
     prediction = model.predict([[age]])
 
