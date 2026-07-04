@@ -29,7 +29,7 @@ st.dataframe(df)
 # -----------------------------------
 
 X = df[["age"]]
-y = ["premium"]
+y = ["bought_insurance"]
 
 model = LogisticRegression()
 
@@ -51,11 +51,11 @@ age = st.number_input(
 # -----------------------------------
 # Prediction
 # -----------------------------------
-if st.button("Predict Insurance Premium"):
+if st.button("Predict bought insurance"):
 
     prediction = model.predict([[age]])
 
-    st.success(f"Estimated Insurance Premium: ₹ {prediction[0]:,.2f}")
+    st.success(f"Estimated bought insurance: ₹ {prediction[0]:,.2f}")
 
 # -----------------------------------
 # Model Information
