@@ -13,7 +13,7 @@ st.set_page_config(
     layout="centered"
 )
 
-st.title("💵 Project 3: Insurance Sales Prediction")
+st.title("💵 Project 3: Insurance Rate Prediction")
 st.write("Predict Insurance Sales using Logistic Regression")
 
 # -----------------------------------
@@ -29,7 +29,7 @@ st.dataframe(df)
 # -----------------------------------
 
 X = df[["age"]]
-y = [premium]
+y = ["premium"]
 
 model = LogisticRegression()
 
@@ -51,11 +51,11 @@ age = st.number_input(
 # -----------------------------------
 # Prediction
 # -----------------------------------
-if st.button("Predict Insurance"):
+if st.button("Predict Insurance Premium"):
 
     prediction = model.predict([[age]])
 
-    st.success(f"Predicted Price: ₹ {prediction[0]:,.2f}")
+    st.success(f"Estimated Insurance Premium: ₹ {prediction[0]:,.2f}")
 
 # -----------------------------------
 # Model Information
