@@ -51,11 +51,11 @@ age = st.number_input(
 # -----------------------------------
 # Prediction
 # -----------------------------------
-if st.button("Predict bought insurance"):
+if st.button("Predict bought_insurance"):
 
     prediction = model.predict([[age]])
 
-    st.success(f"Estimated bought insurance: ₹ {prediction[0]:,.2f}")
+    st.success(f"Estimated bought_insurance: ₹ {prediction[0]:,.2f}")
 
 # -----------------------------------
 # Model Information
