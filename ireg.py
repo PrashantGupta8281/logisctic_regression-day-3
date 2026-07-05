@@ -1,11 +1,4 @@
 import streamlit as st
-import joblib
-import base64
-
-# ---------- Function to Load Background ----------
-def add_bg_from_local(image_file):
-    with open(image_file, "rb") as image:
-        encoded = base64.b64encode(image.read()).decode()
 
     st.markdown(
         f"""
