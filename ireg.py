@@ -23,9 +23,10 @@ model.fit(X, y)
 # User input
 age = st.number_input(
     "Enter Age",
-    min_value=1,
-    max_value=100,
-    value=25
+    min_value=10,
+    max_value=65,
+    value=22
+    step=1
 )
 
 # Prediction
