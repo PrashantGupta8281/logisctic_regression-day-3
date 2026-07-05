@@ -1,66 +1,81 @@
-
-
 import streamlit as st
-import pandas as pd
-from sklearn.linear_model import LogisticRegression
+import joblib
+import base64
 
-# -----------------------------------
-# Page Configuration
-# -----------------------------------
-st.set_page_config(
-    page_title="Insurance Sales Prediction",
-    page_icon="💵",
-    layout="centered"
-)
+# ---------- Function to Load Background ----------
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as image:
+        encoded = base64.b64encode(image.read()).decode()
 
-st.title("💵 Project 3: Insurance Rate Prediction")
-st.write("Predict Insurance Sales using Logistic Regression")
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-image: url("data:image/jpg;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }}
 
-# -----------------------------------
-# Load Dataset
-# -----------------------------------
-df = pd.read_csv("insurance_data.csv")
+        /* Transparent white container */
+        .main > div {{
+            background-color: rgba(255,255,255,0.82);
+            padding: 30px;
+            border-radius: 15px;
+        }}
 
-st.subheader("Insurance Dataset")
-st.dataframe(df)
+        h1 {{
+            color: #0A4D8C;
+            text-align: center;
+        }}
 
-# -----------------------------------
-# Train Model
-# -----------------------------------
+        p {{
+            color: black;
+            font-size:18px;
+        }}
 
-X = df[["age"]]
-y = ["bought_insurance"]
+        div.stButton > button {{
+            background-color: #007ACC;
+            color: white;
+            border-radius: 10px;
+            height: 45px;
+            width: 100%;
+            font-size: 18px;
+        }}
 
-model = LogisticRegression()
+        div.stButton > button:hover {{
+            background-color: #005A9E;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
-model.fit(X, y)
+# Add Background
+add_bg_from_local("background.jpg")
 
-# -----------------------------------
-# User Input
-# -----------------------------------
-st.subheader("Enter Age")
+# Load Model
+model = joblib.load("model.pkl")
 
-age = st.number_input(
-    "Age (in Years)",
-    min_value=10,
-    max_value=65,
-    value=18,
-    step=1
-)
+# App Title
+st.title("🏥 Life Insurance Prediction")
 
-# -----------------------------------
+st.write("Enter the person's age to predict whether they are likely to buy life insurance.")
+
+# Input
+age = st.number_input("Enter Age", min_value=1, max_value=100, value=25)
+
 # Prediction
-# -----------------------------------
-if st.button("Predict bought_insurance"):
+if st.button("Predict"):
 
     prediction = model.predict([[age]])
+    probability = model.predict_proba([[age]])
 
-    st.success(f"Estimated bought_insurance: ₹ {prediction[0]:,.2f}")
+    if prediction[0] == 1:
+        st.success("✅ The person is likely to BUY Life Insurance.")
+    else:
+        st.error("❌ The person is NOT likely to BUY Life Insurance.")
 
-# -----------------------------------
-# Model Information
-# -----------------------------------
-st.subheader("Insurance Details")
-
-st.write("Coefficient:", model.coef_[0])
-st.write("Intercept:", model.intercept_)
+    st.write(f"**Probability of Buying:** {probability[0][1]*100:.2f}%")
+    st.write(f"**Probability of Not Buying:** {probability[0][0]*100:.2f}%")
