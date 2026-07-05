@@ -51,3 +51,4 @@ if st.checkbox("Show Dataset"):
 #connect with me
 st.sidebar.title("🧑🏻‍💻 Connect with me")
 st.sidebar.markdown("[linkedin](https://www.linkedin.com/in/prashant-gupta-012320389?utm_source=share_via&utm_content=profile&utm_medium=member_android)")
+st.sidebar.markdown("[GitHub](https://github.com/PrashantGupta8281)")
