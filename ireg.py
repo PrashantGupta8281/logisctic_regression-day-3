@@ -25,7 +25,7 @@ age = st.number_input(
     "Enter Age",
     min_value=10,
     max_value=65,
-    value=22
+    value=22,
     step=1
 )
 
